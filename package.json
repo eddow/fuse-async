@@ -1,0 +1,16 @@
+{
+  "name": "fuse-async",
+  "version": "1.0.0",
+  "description": "Allow asyncronous lazy-loading of the modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "fmdm",
+  "license": "MIT",
+  "devDependencies": {
+    "fuse-box": "file:.yalc/fuse-box",
+    "typescript": "^2.3.3"
+  },
+  "dependencies": {}
+}
