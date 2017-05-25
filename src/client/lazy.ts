@@ -38,6 +38,8 @@ export class Lazy {
 		}).then(({ref, file})=> {
 			if (file.locals && file.locals.module) return Promise.resolve(file.locals.module.exports);
 			var promises = [], {dependencies} = file.meta;
+			if(!dependencies)
+				return Promise.resolve(FuseBox.import(name, o));
 			for(let dependency of dependencies)
 				promises.push(this.load(dependency, {
 					pkg,

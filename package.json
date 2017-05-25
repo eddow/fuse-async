@@ -12,5 +12,13 @@
     "fuse-box": "file:.yalc/fuse-box",
     "typescript": "^2.3.3"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eddow/fuse-async.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eddow/fuse-async/issues"
+  },
+  "homepage": "https://github.com/eddow/fuse-async#readme",
   "dependencies": {}
 }

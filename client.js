@@ -1,1 +1,2 @@
-module.exports = require('./dist/client.js');
+var mdl = require('./dist/client.js');
+module.exports = mdl.FuseBox.import(mdl.FuseBox.mainFile);
