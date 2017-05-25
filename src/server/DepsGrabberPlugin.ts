@@ -1,5 +1,5 @@
-///<reference path="../node_modules/fuse-box/dist/typings/core/WorkflowContext.d.ts" />
-///<reference path="../node_modules/fuse-box/dist/typings/core/File.d.ts" />
+///<reference path="../../node_modules/fuse-box/dist/typings/core/WorkflowContext.d.ts" />
+///<reference path="../../node_modules/fuse-box/dist/typings/core/File.d.ts" />
 
 export type DepsBasket = {[bundle: string]: {[dependency: string]: string[]} }
 export type DepsAnalyser = (requirement: string, file: File) => void;

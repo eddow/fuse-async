@@ -1,7 +1,7 @@
 declare var FuseBox: 
 export type LazyConfig = {
-	lazyLoadPackage?: (name: string)=> Promise<any>
-	lazyLoadFile?: (RefOpts: {path?: string, pkg?: string, v?: string})=> Promise<any>
+	lazyLoadPackage?: (name: string)=> Promise<any>;
+	lazyLoadFile?: (RefOpts: {path?: string, pkg?: string, v?: string})=> Promise<any>;
 }
 function $getDir(filePath: string) {
     return filePath.substring(0, filePath.lastIndexOf("/")) || "./";
@@ -9,6 +9,7 @@ function $getDir(filePath: string) {
 export class Lazy {
 	lazyLoadPackage: (name: string)=> Promise<any> = null
 	lazyLoadFile: (RefOpts: {path?: string, pkg?: string, v?: string})=> Promise<any> = null
+	packageLoaders: any = {}
 	constructor(config: LazyConfig) {
 		__assign(this, config);
 	}
@@ -16,8 +17,15 @@ export class Lazy {
 		var promise: Promise<any> = Promise.resolve(true), pkg = o.pkg;
 		if(46!== name.charCodeAt(0)) {	// '.'
 			pkg = name.split('/', 2)[0];
-			if(!FuseBox.packages[pkg])
-				promise = this.lazyLoadPackage(pkg);
+			if(!FuseBox.packages[pkg]) {
+				promise = this.packageLoaders[pkg] || (
+					this.packageLoaders[pkg] = this.lazyLoadPackage(pkg).then(()=> {
+						if(!FuseBox.packages[pkg])
+							throw new Error(`Lazy-loading package ${pkg} did not effectively register package`);
+						delete this.packageLoaders[pkg];
+					})
+				);
+			}
 		}
 		return promise.then(()=> {
 			function getInfo() {
